@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//WebContent/admin/addUserInformation.jsp=UTF-8
+encoding//WebContent/resources/css/admin.css=UTF-8
+encoding//WebContent/static/ueditor/jsp/config.json=UTF-8
+encoding//WebContent/static/ueditor/themes/default/css/ueditor.css=UTF-8
+encoding//src/com/shpr/controller/UserController.java=UTF-8
+encoding//src/com/shpr/controller/WebSocketService.java=UTF-8
+encoding//src/com/shpr/tools/MD5.java=GBK
+encoding//src/log4j.properties=UTF-8

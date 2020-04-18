@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.trans{
+	animation: trans 1s linear; /*linear匀速行驶*/
+	animation-fill-mode: forwards; /*保持最后一帧状态*/
+}
+@keyframes trans {
+	0% {margin-left: -900px;}
+	90% {margin-left: 0px;}
+	93% {margin-left: 0px;}
+	96% {margin-left: 0px;}
+	98% {margin-left: 0px;}
+	100% {margin-left: 0px;}
+}

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shpr.dao.ContentDao">
+
+<!-- 插入信息 -->
+  <insert id="saveContentInfo" parameterType="com.shpr.pojo.Content">
+		insert into tb_content(title,content,author,time,click,category2_id)values(#{title},#{content},#{author},#{time},#{click},#{category2_id})
+  </insert>
+  
+  <!--收藏表 - -->
+  <insert id="SaveCollection" parameterType="com.shpr.pojo.Collection">
+        insert into tb_collection(id,name) values(#{id},#{author})
+  </insert>
+  
+  <!--查找收藏表  -->
+   <select id="findCollection" resultType="com.shpr.pojo.Collection">
+		select * from tb_collection where id = #{id} and name = #{author}
+  </select>
+  
+  <!-- 删除收藏表 -->
+  <delete id="deleteCollection"  parameterType="com.shpr.pojo.Collection">
+        delete from tb_collection where id = #{id} and name = #{author}
+  </delete>
+  
+  <select id="getContentist" parameterType="String" resultType="com.shpr.pojo.Content">
+		select * from tb_content
+  </select>
+  
+  <!--修改用户需求信息  -->
+  <update id="updataContentInfo"  parameterType="com.shpr.pojo.Content">
+     update tb_content set title=#{title},content=#{content},author=#{author},time=#{time},click=#{click} where id=#{id}
+  </update>
+  
+  <!-- 看自己的需求信息 -->
+   <select id="secleteAuthor" parameterType="String" resultType="com.shpr.pojo.Content">
+		select * from tb_content where author = #{author}
+  </select>
+  
+  <!-- 查看收藏的ID -->
+  <select id="secleteContent" parameterType="String" resultType="com.shpr.pojo.Collection">
+        select * from tb_collection where name = #{author}
+  </select>
+  
+  
+  <!--查看收藏表的数据  -->
+  <select id="secleteColle" parameterType="String" resultType="com.shpr.pojo.Content">
+        select * from tb_content where id in
+     <foreach item="did" collection="array" open="(" separator="," close=")">
+        #{did}
+    </foreach>
+  </select> 
+  
+  
+  <!-- 批量删除 -->
+ 	<delete id="deleteContent" parameterType="com.shpr.pojo.Content">
+       delete from tb_content where id in
+    <foreach item="did" collection="array" open="(" separator="," close=")">
+        #{did}
+    </foreach>
+    </delete>
+    
+    <select id="selectById" parameterType="Integer" resultType="com.shpr.pojo.Content">
+		select * from tb_content where id = #{id}
+  </select>
+  
+  <!-- 查找用户爱好 -->
+  <select id="secleteUserhobby" parameterType="String" resultType="com.shpr.pojo.User">
+        select user_hobby,user_specialty  from tb_user where user_name = #{user_name}
+  </select>
+  
+  <!--查找是否有爱好特长相关的数据 -->
+   <select id="secleteContenthobby" parameterType="String" resultType="com.shpr.pojo.Content">
+		select * from tb_content where content like concat('%', #{user_hobby} ,'%')
+  </select>
+  
+   <!-- 点击量 -->
+    <update id="updateClick" parameterType="com.shpr.pojo.Content">
+		update tb_content set onclick=#{onclick} where id=#{id} 
+    </update>
+    
+     <!-- 判断是否推荐 insertState -->
+     <!-- <update id="insertState" parameterType="com.shpr.pojo.Content">
+		insert into tb_content (state) values (#{hobby}) 
+    </update> 
+     -->
+     <!--ShowcateOne  -->
+     <select id="ShowOnecate" parameterType="String" resultType="com.shpr.pojo.onecategory">
+		select * from onecategory
+	</select>
+     
+     <!-- 根据category2_id 查询信息的列表  -->
+     <select id="listContentInfo" resultType="com.shpr.pojo.Content"  >
+		SELECT * FROM tb_content WHERE category2_id = #{category2_id};
+	</select>
+	
+	<!-- 统计某个用户的行为记录的条数 -->
+	<select id="countUserActive"  resultType="Long">
+       	SELECT COUNT(*) FROM browsinghistory WHERE user_id = #{user_id} AND category2_id = #{category2_id}
+	</select>
+     
+     <!-- 向用户行为表中添加一条用户的行为记录 -->
+	<insert id="saveUserActive" parameterType="com.shpr.pojo.ShoppingActive">
+	   INSERT INTO browsinghistory(user_id, category2_id, previewTotal)
+	   VALUES(#{user_id}, #{category2_id}, #{previewTotal})
+	</insert>
+     
+     <!-- 根据用户已有的行为信息获取它对某个二级类目的点击量 -->
+	<select id="getHitsByUserActiveInfo" parameterType="com.shpr.pojo.ShoppingActive" resultType="Long">
+	   SELECT previewTotal FROM browsinghistory
+	   WHERE user_id = #{user_id} AND category2_id = #{category2_id}
+	</select>
+     
+      <!-- 更新用户对某个二级类目的点击量 -->
+    <update id="updateUserActive" parameterType="com.shpr.pojo.ShoppingActive" >
+        UPDATE browsinghistory SET previewTotal = #{previewTotal}
+        WHERE user_id = #{user_id} AND category2_id = #{category2_id}
+    </update>
+    
+     <!-- 根据信息的id查询出它的详细信息 -->
+	<select id="getContentByContentId" parameterType="Long" resultType="com.shpr.pojo.Content">
+		SELECT * FROM tb_content WHERE id = #{content_id}
+	</select>
+    
+    <!--根据信息的id获取该商品的点击量  -->
+    <select id="getContentHitsByCId" parameterType="Integer" resultType="Integer">
+        select onclick from tb_content where id = #{content_id}
+    </select>
+    
+    <!-- 根据信息id更新信息点击量 -->
+	<update id="updateContent" parameterType="com.shpr.pojo.Content" >
+		UPDATE tb_content set onclick=#{onclick} where id = #{id};
+	</update>
+    
+    
+     
+     
+     <!-- 用户浏览历史的记录 -->
+      <select id="listAllUserActive" parameterType="Integer" resultType="com.shpr.pojo.ShoppingActive">
+		select * from browsinghistory 
+  </select>
+     
+     <!--参考用户是否有关系-->
+      <select id="listUserSimilarityByUId" parameterType="Long" resultType="com.shpr.pojo.ShoppingUserSimilarity">
+		select * from similaritydegree where user_id = #{user_id} or user_ref_id = #{user_id}
+  </select>
+   
+   <!--判断两个用户之间的相似度是否已经存在  -->
+  <select id="countUserSimilarity" parameterType="com.shpr.pojo.ShoppingUserSimilarity" resultType="Integer">
+		select count(*) from similaritydegree where user_id = #{user_id} and user_ref_id = #{user_ref_id} or user_ref_id = #{user_ref_id} and user_id = #{user_ref_id}
+  </select>
+  
+  <insert id="saveUserSimilarity"  parameterType="com.shpr.pojo.ShoppingUserSimilarity">
+        insert into similaritydegree(user_id,user_ref_id,similarty) values(#{user_id},#{user_ref_id},#{similarty})
+  </insert>
+  
+  <!--修改用户相似度信息  -->
+  <update id="updateUserSimilarity"  parameterType="com.shpr.pojo.ShoppingUserSimilarity">
+     update similaritydegree set similarty=#{similarty} where user_id=#{user_id} and user_ref_id=#{user_ref_id}
+  </update>
+  
+  <!--listContent查看信息的列表  -->
+  <select id="listContent" resultType="com.shpr.pojo.Content" >
+		SELECT * FROM tb_content where category2_id = #{category2_id}
+	</select>
+  
+
+
+</mapper>

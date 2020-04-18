@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+.btn-margin1{
+     margin-left: 5px;
+ }
+ .btn-margin2{
+     margin-left: 5px;
+ }
+thead{background-color: #5bc0de;color: white;}
+
+.modal-footer {
+    padding: 10px !important;
+    border-top: 1px solid #e5e5e5;
+}
+.form-control-input{background-color:#fff !important;}

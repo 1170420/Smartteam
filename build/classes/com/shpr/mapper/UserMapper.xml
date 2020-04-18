@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shpr.dao.UserDao">
+
+    <!-- 登录 -->
+    <select id="selecetUserByIdLogin" resultType="com.shpr.pojo.User">
+		select * from tb_user where user_name=#{user_name} and user_pwd=md5(#{user_pwd})
+	</select>
+	
+	<!-- 管理员信息 -->
+	<select id="getUserList" parameterType="String" resultType="com.shpr.pojo.User">
+		select * from tb_user
+	</select>
+	
+	
+	<select id="selectUserById" parameterType="String" resultType="com.shpr.pojo.User">
+		select * from tb_user where id=#{id}
+	</select>
+	
+	<update id="stopUser" parameterType="com.shpr.pojo.User">
+	   update tb_user set user_state=0 where id=#{id}
+	</update>
+	
+	<update id="startUser" parameterType="com.shpr.pojo.User">
+	   update tb_user set user_state=1 where id=#{id}
+	</update>
+	
+     <!--忘记密码  -->
+    <update id="updateUserPwd" parameterType="com.shpr.pojo.User">
+	   update tb_user set user_pwd=md5(#{user_pwd}) where user_name=#{user_name}
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="com.shpr.pojo.User">
+	   delete from tb_user where id=#{id}
+	</delete>
+	
+	<!-- 用户 -->
+	<select id="selectUserExist" resultType="int" parameterType="String">
+        select count(user_name) from tb_user where user_name = #{_parameter};    <!-- 当只有一个参数，可以使用_parameter，它就代表了这个参数 -->
+    </select>
+    <!-- 用户信息，爱好 -->
+    <select id="getinformation" resultType="com.shpr.pojo.User" parameterType="com.shpr.pojo.User">
+        select * from tb_user
+    </select>
+    <!-- 增加用户 -->
+     <insert id="saveUserInfo" parameterType="com.shpr.pojo.User">
+		insert into tb_user(user_name,user_pwd,user_call,user_time,user_role,user_state,user_mail,user_hobby,user_specialty)values(#{user_name},md5(#{user_pwd}),#{user_call},#{user_time},#{user_role},#{user_state},#{user_mail},#{user_hobby},#{user_specialty})
+	</insert>
+	
+	 <!-- 用户反馈 -->
+	 <insert id="saveUserFeedback" parameterType="com.shpr.pojo.Feedback">
+		insert into tb_feedback(user_name,user_xb,user_age,user_address,user_time,user_call,user_sf,user_advice)values(#{user_name},#{user_xb},#{user_age},#{user_address},#{user_time},#{user_call},#{user_sf},#{user_advice})
+	</insert>
+	
+	<!--显示用户反馈表 -->
+	<select id="getUserfeedList" parameterType="String" resultType="com.shpr.pojo.Feedback">
+		 select * from tb_feedback
+	</select>
+    
+   <!--  <insert id="saveUserInfo1" parameterType="com.shpr.pojo.Teach">
+		insert into tb_teach(teach_name,teach_pwd,teach_call,teach_time,teach_role,teach_state)values(#{teach_name},#{teach_pwd},#{teach_call},#{teach_time},#{teach_role},#{teach_state})
+	</insert> -->
+	
+	<update id="updateUserInfo" parameterType="com.shpr.pojo.User">
+	   update tb_user set user_time=#{user_time},user_call=#{user_call},user_role=#{user_role},user_state=#{user_state} where id=#{id}
+	</update>
+	
+	
+	<!-- 保存log数据 -->
+	<insert id="saveLogInformation"  parameterType="com.shpr.pojo.Log">
+		insert into tb_log(id,systime,sysname,sysip,sysport,sysusername,syshost,sysfunction,sysdata)values(#{id},#{systime},#{sysname},#{sysip},#{sysport},#{sysusername},#{syshost},#{sysfunction},#{sysdata})
+	</insert>
+	
+	<!-- 显示log数据 -->
+	<select id="getLogList" parameterType="String" resultType="com.shpr.pojo.Log">
+	    select * from tb_log
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteLogs" parameterType="com.shpr.pojo.Log">
+	    delete from tb_log where id in
+	    <foreach item="did" collection="array" open="(" separator="," close=")">
+        #{did}
+    </foreach>
+	</delete>
+	
+	<!--一级目录getonecategoryList  -->
+	<select id="getonecategoryList" parameterType="String" resultType="com.shpr.pojo.onecategory">
+		select * from onecategory
+	</select>
+	
+	<!--添加一级目录 saveonecateInfo-->
+	<insert id="saveonecateInfo" parameterType="com.shpr.pojo.onecategory">
+	   insert into onecategory(category_id,category1_name,category1_time) values(#{category_id},#{category1_name},#{category1_time})
+	</insert>
+	
+	<update id="updateonecateInfo" parameterType="com.shpr.pojo.onecategory">
+	   update onecategory set category1_name=#{category1_name},category1_time=#{category1_time} where category_id=#{category_id}
+	</update>
+	
+	<!--删除一级目录  -->
+	<delete id="deleteOnecate" parameterType="com.shpr.pojo.onecategory">
+	   delete from onecategory where category_id=#{category_id}
+	</delete>
+	
+	<!--一级目录gettowcategoryList  -->
+	<select id="gettowcategoryList" parameterType="String" resultType="com.shpr.pojo.towcategory">
+	   select * from towcategory
+	</select>
+	
+	<!--添加二级目录  -->
+	<insert id="savetowcateInfo" parameterType="com.shpr.pojo.towcategory">
+	   insert into towcategory(category2_id,category2_name,category1_id,category2_time) values(#{category2_id},#{category2_name},#{category1_id},#{category2_time})
+	</insert>
+	
+	<!-- 修改二级目录 -->
+	<update id="updateTowcateInfo" parameterType="com.shpr.pojo.towcategory">
+	   update towcategory set category2_name=#{category2_name},category2_time=#{category2_time} where category2_id=#{category2_id}
+	</update>
+	
+	<!-- 删除二级目录 -->
+	<delete id="deleteTowcate" parameterType="com.shpr.pojo.towcategory">
+	   delete towcategory where category2_id=#{category2_id}
+	</delete>
+	
+	
+	
+</mapper>	

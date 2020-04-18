@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+html{
+	overflow-x: hidden; overflow-y: auto;
+}
+.from-input{
+   width: 860px !important;
+}

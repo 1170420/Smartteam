@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+body{font-size: 12px;padding-top:10px;}
+.container{width:1170px;padding-top:10px;border: 1px #e6dcdc solid}
+.container1{width:1170px;padding-top:10px;}
+.navbar{background: #393D49;border-radius:0px;} 
+.navbar a{color:#ffffff !important}
+.dropdown-menu a{color:#333333 !important}
+.navbar-brand{font-size: 14px;font-family: '微软雅黑'}
+.breadcrumb-container{margin-top: 70px}
+.footer-container{text-align: center;margin:20px 0px;}
+.text-align-right{text-align: right;}
+.w120{width: 120px;}
+.w600{width:600px;}
+.float-left{float: left;}
+.margin-lfet-10{margin-right: 10px;}
+.margin-top-20{margin-top:20px;}
+.modal-header-primary{background: #6fc8e1}
+.modal-content-primary{width: 400px;}
+.modal-title-h4{font-size: 14px;color: #fff;}
+.modal-footer-40h{height: 40px;}
+.btn-float-center{margin-left: 100px;}
+.modal-footer-height{padding:8px !important;}
+.radio-padding{margin-top: 0px !important;margin-bottom: 0px !important;}
+.role-modal-title{text-align: center;font-weight: bold;background: #f9f9f9;}
+.modal-content-roleh400{width: 350px;border-radius: 0px;margin-left: 150px;}
+.role-madal-name{width: 100px;text-align: right;}
+.label1{font-weight: normal;margin-right: 10px;line-height: 20px;}
+.label1 input{float: left;margin-right: 3px;}
+.modal-header-back {background: #5bc0de;color:#fff;font-weight:bold;}
+.emi-box{width: 100%;padding:20px;background: #fff;height: 500px;}
+.emi-box1{width: 100%;padding:20px;background: #fff;height: 450px;}
+.emi-title{display: block;width: 100%;height: 35px;font-size: 25px;text-align: center;font-family: '微软雅黑';}
+.text-align-right{text-align: right;}
+.margin-top-10{margin-top: 10px;}
+.margin-top-11{margin-top: 10px;font-size: 10px;}
+.emi-key{width: 140px;font-weight:bold;text-align: right;}
+.emi-key span{color:red;font-weight: bold;font-size: 15px;padding:0px 5px;}
+.emi-photo{width: 140px;padding:5px !important;}
+.emi-photo img{width:130px;height:200px;}
+.emi-lable{font-weight: normal;float: left;height: 15px;line-height: 25px;margin-right: 10px;}
+.emi-lable input{float: left;margin-right: 5px;}
+.emi-input{width:100%;height:25px;border: 0 none;}
+input:focus,select:focus{outline: 0 none;}
+.emi-select{width: 100%;height: 25px;border: 1px solid #fff;}
+.emi-address{width: 130px;margin-right: 5px;}
+.emi-address-input{width: 200px;padding:0 25px;}
+.emi-table td{padding:5px !important;}
+.emi-note{background: #FAFAFA;border: 1px solid #ccc;padding:10px}
+
+.label-font {
+    font-weight: 500 !important;
+}
+/* 数据表格tbody */
+.tbody-th{
+	text-align: center;font-weight: normal;
+}
+
